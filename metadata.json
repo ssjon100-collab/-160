@@ -1,0 +1,6 @@
+{
+  "name": "동탄그웬 160 - 프리미엄 하이엔드 주거 분양홍보관",
+  "description": "동탄의 새로운 랜드마크 하이엔드 주거명작 '동탄그웬 160' 공식 분양홍보관 및 관리자 CMS 시스템",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
