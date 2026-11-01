@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useSite } from '../../context/SiteContext';
-import { UserCheck, Sparkles, Shield, CheckCircle2, Gift, Send, Clock, Phone, Loader2 } from 'lucide-react';
+import { UserCheck, Sparkles, Shield, CheckCircle2, Gift, Send, Clock, Phone, Loader2, BadgePercent } from 'lucide-react';
 
 export const InquirySection: React.FC = () => {
-  const { addInquiry, units, content, isInquiryModalOpen, setIsInquiryModalOpen, showToast } = useSite();
+  const { addInquiry, content, isInquiryModalOpen, setIsInquiryModalOpen, showToast } = useSite();
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    preferredType: units[0]?.name || '102㎡ A-TYPE 테라스 스위트',
+    preferredType: '전체 잔여세대 (상담 시 안내)',
     preferredTime: '주말 오전 (10:00 ~ 13:00)',
     message: '',
     agreePrivacy: true,
@@ -94,7 +94,7 @@ export const InquirySection: React.FC = () => {
           name: '',
           phone: '',
           email: '',
-          preferredType: units[0]?.name || '102㎡ A-TYPE 테라스 스위트',
+          preferredType: '전체 잔여세대 (상담 시 안내)',
           preferredTime: '주말 오전 (10:00 ~ 13:00)',
           message: '',
           agreePrivacy: true,
@@ -155,12 +155,12 @@ export const InquirySection: React.FC = () => {
           </div>
 
           <div className="flex items-start gap-3.5 p-3.5 rounded-xl bg-[#151125] border border-purple-500/20">
-            <div className="w-8 h-8 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center shrink-0">
-              <Shield className="w-4 h-4" />
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+              <BadgePercent className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-white mb-0.5">하이엔드 인테리어 가이드북 증정</h4>
-              <p className="text-[11px] text-gray-400">폴리폼, 밀레 및 테라스 특화 설계 자료집 웰컴 기프트 증정</p>
+              <h4 className="text-xs font-bold text-white mb-0.5">계약금 5%, 중도금대출 60%</h4>
+              <p className="text-[11px] text-gray-400">초기 자금 부담을 덜어주는 계약금 5% 및 중도금 60% 대출 가능 파격 혜택</p>
             </div>
           </div>
         </div>
@@ -232,47 +232,23 @@ export const InquirySection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Preferred Unit */}
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-1.5">
-                    관심 평형 타입 <span className="text-purple-400">*</span>
-                  </label>
-                  <select
-                    name="관심평형타입"
-                    value={formData.preferredType}
-                    onChange={e => setFormData(prev => ({ ...prev, preferredType: e.target.value }))}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#130f24] border border-purple-500/25 text-xs text-white focus:outline-none focus:border-purple-400 transition-colors"
-                  >
-                    {units.map(u => (
-                      <option key={u.id} value={u.name} className="bg-[#130f24] text-white">
-                        {u.name}
-                      </option>
-                    ))}
-                    <option value="미정 (상담 후 결정)" className="bg-[#130f24] text-white">
-                      미정 (상담 후 결정)
-                    </option>
-                  </select>
-                </div>
-
-                {/* Preferred Time */}
-                <div>
-                  <label className="block text-xs font-semibold text-gray-300 mb-1.5">
-                    상담 희망 시간대
-                  </label>
-                  <select
-                    name="상담희망시간대"
-                    value={formData.preferredTime}
-                    onChange={e => setFormData(prev => ({ ...prev, preferredTime: e.target.value }))}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#130f24] border border-purple-500/25 text-xs text-white focus:outline-none focus:border-purple-400 transition-colors"
-                  >
-                    <option value="주말 오전 (10:00 ~ 13:00)">주말 오전 (10:00 ~ 13:00)</option>
-                    <option value="주말 오후 (14:00 ~ 18:00)">주말 오후 (14:00 ~ 18:00)</option>
-                    <option value="평일 오전 (10:00 ~ 13:00)">평일 오전 (10:00 ~ 13:00)</option>
-                    <option value="평일 오후 (14:00 ~ 18:00)">평일 오후 (14:00 ~ 18:00)</option>
-                    <option value="상시 가능">상시 가능</option>
-                  </select>
-                </div>
+              {/* Preferred Time */}
+              <div>
+                <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+                  상담 희망 시간대
+                </label>
+                <select
+                  name="상담희망시간대"
+                  value={formData.preferredTime}
+                  onChange={e => setFormData(prev => ({ ...prev, preferredTime: e.target.value }))}
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#130f24] border border-purple-500/25 text-xs text-white focus:outline-none focus:border-purple-400 transition-colors"
+                >
+                  <option value="주말 오전 (10:00 ~ 13:00)">주말 오전 (10:00 ~ 13:00)</option>
+                  <option value="주말 오후 (14:00 ~ 18:00)">주말 오후 (14:00 ~ 18:00)</option>
+                  <option value="평일 오전 (10:00 ~ 13:00)">평일 오전 (10:00 ~ 13:00)</option>
+                  <option value="평일 오후 (14:00 ~ 18:00)">평일 오후 (14:00 ~ 18:00)</option>
+                  <option value="상시 가능">상시 가능</option>
+                </select>
               </div>
 
               {/* Message */}
