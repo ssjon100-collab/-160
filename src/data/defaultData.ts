@@ -46,6 +46,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
       { label: '단지 규모', value: '160세대', desc: '지하 1층~지상 4층 9개동' },
       { label: '주차 공간', value: '1.86대', desc: '세대당 100% 지하주차(298대)' },
       { label: '입지 특권', value: '초품아', desc: '단지 앞 현민초·유치원 도보1분' },
+      { label: '계약 혜택', value: '계약금 5%', desc: '중도금 60% 대출가능' },
     ],
   },
   overview: {

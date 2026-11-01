@@ -87,7 +87,7 @@ const SiteContext = createContext<SiteContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
   THEME: 'dongtan_gwen160_v6_theme',
-  CONTENT: 'dongtan_gwen160_v14_content',
+  CONTENT: 'dongtan_gwen160_v16_content',
   PREMIUMS: 'dongtan_gwen160_v9_premiums',
   UNITS: 'dongtan_gwen160_v13_units',
   SCHEDULE: 'dongtan_gwen160_v6_schedule',
@@ -116,6 +116,13 @@ export const SiteProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return {
           ...DEFAULT_SITE_CONTENT,
           ...parsed,
+          hero: {
+            ...DEFAULT_SITE_CONTENT.hero,
+            ...(parsed.hero || {}),
+            stats: (parsed.hero?.stats && parsed.hero.stats.length >= 4)
+              ? parsed.hero.stats
+              : DEFAULT_SITE_CONTENT.hero.stats,
+          },
           contact: {
             ...DEFAULT_SITE_CONTENT.contact,
             ...(parsed.contact || {}),

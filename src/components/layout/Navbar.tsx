@@ -12,6 +12,7 @@ import {
   MapPin,
   Newspaper,
   UserCheck,
+  Lock,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -137,9 +138,9 @@ export const Navbar: React.FC = () => {
               <button
                 onClick={() => setIsAdminOpen(true)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/35 border border-purple-500/50 text-purple-200 text-xs font-semibold transition-all hover:text-white group"
-                title="관리자 CMS 대시보드 열기"
+                title="관리자 CMS 대시보드 (비밀번호: 1440)"
               >
-                <Sliders className="w-3.5 h-3.5 text-purple-400 group-hover:rotate-45 transition-transform" />
+                <Lock className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
                 <span className="hidden xs:inline">관리자 CMS</span>
               </button>
 
@@ -202,7 +203,7 @@ export const Navbar: React.FC = () => {
                   }}
                   className="py-2.5 rounded-xl bg-purple-950/40 border border-purple-500/30 text-purple-200 flex items-center justify-center gap-1.5 font-semibold"
                 >
-                  <Sliders className="w-3.5 h-3.5 text-purple-400" />
+                  <Lock className="w-3.5 h-3.5 text-purple-400" />
                   <span>관리자 대시보드</span>
                 </button>
               </div>

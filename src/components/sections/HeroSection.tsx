@@ -97,27 +97,36 @@ export const HeroSection: React.FC = () => {
 
         {/* Stats Cards */}
         <div className={`grid gap-3 sm:gap-4 mx-auto ${hero.stats.length === 3 ? 'grid-cols-1 sm:grid-cols-3 max-w-4xl' : 'grid-cols-2 lg:grid-cols-4 max-w-5xl'}`}>
-          {hero.stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover text-left relative overflow-hidden group"
-            >
-              <div className="absolute top-0 right-0 w-20 h-20 bg-purple-600/10 rounded-full blur-xl group-hover:bg-purple-600/20 transition-colors" />
-              <div className="text-[11px] font-medium text-purple-300/80 mb-1 flex items-center justify-between">
-                <span>{stat.label}</span>
-                {idx === 0 ? <Award className="w-3.5 h-3.5 text-purple-400" /> : <Shield className="w-3.5 h-3.5 text-purple-400/60" />}
-              </div>
+          {hero.stats.map((stat, idx) => {
+            const renderStatIcon = () => {
+              if (idx === 0) return <Award className="w-3.5 h-3.5 text-purple-400" />;
+              if (idx === 1) return <Shield className="w-3.5 h-3.5 text-purple-400/80" />;
+              if (idx === 2) return <Sparkles className="w-3.5 h-3.5 text-purple-400" />;
+              return <Sparkles className="w-3.5 h-3.5 text-emerald-400" />;
+            };
+
+            return (
               <div
-                className="text-2xl sm:text-3xl font-extrabold text-white font-cinzel mb-1 tracking-tight"
-                style={{ color: '#ffffff' }}
+                key={idx}
+                className="p-4 sm:p-5 rounded-2xl glass-card glass-card-hover text-left relative overflow-hidden group border border-purple-500/20 hover:border-purple-500/40 transition-all"
               >
-                {stat.value}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-purple-600/10 rounded-full blur-xl group-hover:bg-purple-600/20 transition-colors" />
+                <div className="text-[11px] font-medium text-purple-300/80 mb-1 flex items-center justify-between">
+                  <span>{stat.label}</span>
+                  {renderStatIcon()}
+                </div>
+                <div
+                  className="text-2xl sm:text-3xl font-extrabold text-white font-cinzel mb-1 tracking-tight"
+                  style={{ color: '#ffffff' }}
+                >
+                  {stat.value}
+                </div>
+                <div className="text-xs text-gray-300/90 font-light leading-snug">
+                  {stat.desc}
+                </div>
               </div>
-              <div className="text-xs text-gray-400 font-light truncate">
-                {stat.desc}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Scroll indicator */}

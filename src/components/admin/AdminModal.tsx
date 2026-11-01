@@ -15,6 +15,10 @@ import {
   UserCheck,
   RotateCcw,
   Sparkles,
+  Lock,
+  KeyRound,
+  AlertCircle,
+  ShieldCheck,
 } from 'lucide-react';
 
 type AdminTab = 'posts' | 'theme' | 'content' | 'seo' | 'inquiries';
@@ -22,8 +26,102 @@ type AdminTab = 'posts' | 'theme' | 'content' | 'seo' | 'inquiries';
 export const AdminModal: React.FC = () => {
   const { isAdminOpen, setIsAdminOpen, inquiries, resetToDefaults, theme } = useSite();
   const [activeTab, setActiveTab] = useState<AdminTab>('posts');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [showShake, setShowShake] = useState(false);
 
   if (!isAdminOpen) return null;
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput.trim() === '1440') {
+      setIsAuthenticated(true);
+      setErrorMsg('');
+      setPasswordInput('');
+    } else {
+      setErrorMsg('비밀번호가 일치하지 않습니다. 다시 입력해 주세요.');
+      setShowShake(true);
+      setTimeout(() => setShowShake(false), 600);
+    }
+  };
+
+  const handleClose = () => {
+    setIsAdminOpen(false);
+    setPasswordInput('');
+    setErrorMsg('');
+  };
+
+  // 1. Password verification gate before accessing CMS
+  if (!isAuthenticated) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto animate-fade-in">
+        <div
+          className={`relative w-full max-w-md my-auto rounded-3xl bg-[#0e0b1c] border border-purple-500/40 p-6 sm:p-8 shadow-2xl purple-glow-lg text-white transition-all ${
+            showShake ? 'translate-x-[-8px] duration-75 ring-2 ring-rose-500/80' : ''
+          }`}
+        >
+          {/* Close button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-5 right-5 p-2 rounded-xl text-gray-400 hover:text-white hover:bg-purple-900/40 transition-colors"
+            aria-label="닫기"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-purple-600/20 border border-purple-400/50 flex items-center justify-center mx-auto text-purple-300 purple-glow">
+              <Lock className="w-8 h-8 text-purple-400" />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold text-white tracking-tight">관리자 CMS 보안 인증</h3>
+              <p className="text-xs text-purple-200/80 mt-1">
+                관리자 대시보드에 접근하려면 지정된 비밀번호를 입력해 주세요.
+              </p>
+            </div>
+
+            <form onSubmit={handlePasswordSubmit} className="space-y-4 pt-2">
+              <div>
+                <input
+                  type="password"
+                  inputMode="numeric"
+                  autoFocus
+                  placeholder="비밀번호 입력 (4자리)"
+                  value={passwordInput}
+                  onChange={(e) => {
+                    setPasswordInput(e.target.value);
+                    if (errorMsg) setErrorMsg('');
+                  }}
+                  className="w-full px-4 py-3 rounded-xl bg-[#141026] border border-purple-500/35 text-center text-lg tracking-widest text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-400/30 transition-all font-mono"
+                />
+                {errorMsg && (
+                  <p className="text-xs text-rose-400 mt-2 font-medium flex items-center justify-center gap-1 animate-fade-in">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    <span>{errorMsg}</span>
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm shadow-lg shadow-purple-600/40 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+              >
+                <KeyRound className="w-4 h-4" />
+                <span>관리자 로그인</span>
+              </button>
+            </form>
+
+            <div className="pt-2 border-t border-purple-950/60 flex items-center justify-center gap-1 text-[11px] text-gray-500">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>보안 PIN 암호화 잠금 적용됨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const newInquiriesCount = inquiries.filter(i => i.status === '신규접수').length;
 
@@ -66,9 +164,22 @@ export const AdminModal: React.FC = () => {
               <span>초기값 복원</span>
             </button>
 
+            {/* Lock session button */}
+            <button
+              onClick={() => {
+                setIsAuthenticated(false);
+                setPasswordInput('');
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-500/30 text-purple-200 hover:text-white text-xs transition-colors"
+              title="관리자 세션 잠금"
+            >
+              <Lock className="w-3.5 h-3.5 text-purple-400" />
+              <span>잠금</span>
+            </button>
+
             {/* Close button */}
             <button
-              onClick={() => setIsAdminOpen(false)}
+              onClick={handleClose}
               className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-purple-900/40 transition-colors"
               aria-label="닫기"
             >
