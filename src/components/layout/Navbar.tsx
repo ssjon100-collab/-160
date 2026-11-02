@@ -138,7 +138,7 @@ export const Navbar: React.FC = () => {
               <button
                 onClick={() => setIsAdminOpen(true)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/35 border border-purple-500/50 text-purple-200 text-xs font-semibold transition-all hover:text-white group"
-                title="관리자 CMS 대시보드 (비밀번호: 1440)"
+                title="관리자 CMS 대시보드"
               >
                 <Lock className="w-3.5 h-3.5 text-purple-400 group-hover:scale-110 transition-transform" />
                 <span className="hidden xs:inline">관리자 CMS</span>
