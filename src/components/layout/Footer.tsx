@@ -56,10 +56,12 @@ export const Footer: React.FC = () => {
 
         {/* Business and Legal Information */}
         <div className="py-8 space-y-3 text-[11px] text-gray-500 leading-relaxed">
-          <div className="flex flex-wrap gap-x-6 gap-y-1 text-gray-400">
-            <span><strong>시행 :</strong> {content.overview.developer}</span>
-            <span><strong>시공 :</strong> {content.overview.constructionCompany}</span>
-            <span><strong>신탁 :</strong> {content.overview.trustee}</span>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-gray-400 text-xs sm:text-[12px]">
+            <span>사이트운영자 : 김승식</span>
+            <span className="text-gray-600">|</span>
+            <span>
+              문의 : <a href="tel:1688-8768" className="text-purple-300 hover:text-purple-200 transition-colors font-semibold">1688-8768</a>
+            </span>
           </div>
 
           <p>
